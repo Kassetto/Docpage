@@ -1,0 +1,153 @@
+:root {
+  font-family: 'Roboto', sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 2fr 4fr;
+}
+aside {
+  border-right: 1px solid #ddd;
+  padding-bottom: 20px;
+  background: white;
+}
+#navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 35px;
+}
+.scroll {
+  overflow: auto;
+  height: 100vh;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+#navbar header{
+  width: 100%;
+  padding-left: 50px;
+}
+#navbar header h1 {
+  padding-left: 30px;
+}
+.navigation {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.nav-link {
+  display: block;
+  padding: 8px 16px;
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+.main-section {
+  margin-bottom: 50px;
+}
+.main-section p {
+  line-height: 1.5;
+}
+.inline-code {
+  background-color: #eee;
+  font-weight: 400;
+  padding: 2px 4px;
+  border-radius: 5px;
+}
+.lines {
+  counter-reset: line;
+  background-color: hsl(229deg 27% 8%);
+  color: #fff;
+  list-style-type: none;
+  padding: 0;
+}
+.lines li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-column-gap: 10px;
+  counter-increment: line;
+  line-height: 1.5;
+}
+.lines li > div {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.lines li::before {
+  content: counter(line);
+  padding-left: 30px;
+  padding-right: 10px;
+  display: inline-block;
+  border-right: 1px solid #444;
+  width: 15px;
+}
+.lines li:first-child {
+  padding-top: 15px;
+}
+.lines li:last-child {
+  padding-bottom: 15px;
+}
+.lines li[data-indent='1']::before {
+  margin-right: 20px;
+}
+.lines li[data-indent='2']::before {
+  margin-right: 40px;
+}
+.lines li[data-indent='3']::before {
+  margin-right: 60px;
+}
+.lines li[data-indent='4']::before {
+  margin-right: 80px;
+}
+.lines li[data-indent='5']::before {
+  margin-right: 100px;
+}
+.code-dot {
+  color: #00a8e0;
+}
+.code-function {
+  color: #00a6ff;
+}
+.code-open-tag, .code-close-tag, .code-parenthesis {
+  color: #3c9dc7;
+}
+.code-tag {
+  color: #e64e6f;
+}
+.code-object {
+  color: #3cc7c5;
+}
+.code-string {
+  color: #2fde75;
+}
+.code-keyword, .code-attribute {
+  color: #cd94ff;
+}
+.code-class, .code-component {
+  color: #fabc37;
+}
+.code-prop {
+  color: #ababab;
+}
+.code-comment {
+  color: #5c5c5c;
+}
+.code-number {
+  color: #ff4f9e;
+}
+@media (max-width: 620px) {
+  body {
+    grid-template-columns: 1fr;
+  }
+  #navbar {
+    align-items: flex-start;
+  }
+  aside {
+    border-bottom: 1px solid #ddd;
+  }
+  .scroll {
+    height: auto;
+  }
+}
