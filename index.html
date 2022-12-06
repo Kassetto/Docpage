@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation site</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <aside>
+    <nav id="navbar">
+      <header>
+        <h1>React</h1>
+      </header>
+      <ul class="navigation">
+        <li class="nav-item">
+          <a class="nav-link" href="#hello_world">Hello world</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#jsx">JSX</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#element_rendering">Element rendering</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#components_and_props">Components and props</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#state">State</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#lifecycle">Lifecycle</a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  <main id="main-doc">
+    <div class="scroll">
+      <section class="main-section" id="hello_world">
+        <header>
+          <h2>Hello World</h2>
+        </header>
+        <div>
+          <p>
+            The smallest react example looks like this:
+          </p>
+          <code>
+            <ol class="lines">
+              <li>
+                <div>
+                  ReactDOM<span class="code-dot">.</span><span class="code-function">render</span><span class="code-parenthesis">(</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-open-tag">&lt;</span><span class="code-tag">h1</span><span class="code-close-tag">&gt;</span>Hello, world!<span class="code-open-tag">&lt;/</span><span class="code-tag">h1</span><span class="code-close-tag">&gt;</span>,
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-object">document</span><span class="code-dot">.</span><span class="code-function">getElementById</span><span class="code-parenthesis">(</span><span class="code-string">'root'</span><span class="code-parenthesis">)</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <span class="code-parenthesis">);</span>
+                </div>
+              </li>
+            </ol>
+          </code>
+          <h3>Knowledge assumptions</h3>
+          <p>
+            Since react is a Javascript library it is needed to understand the language. If this is not the case please go check the javascript docs.
+          </p>
+        </div>
+      </section>
+      <section class="main-section" id="jsx">
+        <header>
+          <h2>JSX</h2>
+        </header>
+        <div>
+          <p>
+            Consider the next declaration
+          </p>
+          <code>
+            <ol class="lines">
+              <li>
+                <div>
+                  <span class="code-keyword">const</span> element = <span class="code-open-tag">&lt;</span><span class="code-tag">h1</span><span class="code-open-tag">&gt;</span>Hello, world!<span class="code-open-tag">&lt;/</span><span class="code-tag">h1</span><span class="code-open-tag">&gt;;</span>
+                </div>
+              </li>
+            </ol>
+          </code>
+          <p>
+            The string above is not a conventional javascript string not HTML tag. 
+          </p>
+          <p>
+            The syntax above is called JSX. It is an extension to Javascript syntax. It could be used to represent the real UI but it also comes with the full Javascript power. JSX generates React elements that can be rendered in the DOM.
+          </p>
+          <p>
+            Along with JSX, Javascript syntax can be used, any expresion you knew before can be used by putting it between curly braces. These expressions could be variables, functions, operations, etc. Consider the example below:
+          </p>
+          <code>
+            <ol class="lines">
+              <li>
+                <div>
+                  <span class="code-keyword">const</span> name = <span class="code-string">'Josh Perez'</span><span class="code-open-tag">;</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <span class="code-keyword">const</span> element = <span class="code-open-tag">&lt;</span><span class="code-tag">h1</span><span class="code-open-tag">&gt;</span>Hello, {name}<span class="code-open-tag">&lt;/</span><span class="code-tag">h1</span><span class="code-open-tag">&gt;;</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  ReactDOM<span class="code-dot">.</span><span class="code-function">render</span><span class="code-open-tag">(</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  element<span class="code-dot">,</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-object">document</span><span class="code-dot">.</span><span class="code-function">getElementById</span><span class="code-open-tag">(</span><span class="code-string">'root'</span><span class="code-open-tag">)</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <span class="code-open-tag">);</span>
+                </div>
+              </li>
+            </ol>
+          </code>
+        </div>
+      </section>
+      <section class="main-section" id="element_rendering">
+        <header>
+          <h2>Element rendering</h2>
+        </header>
+        <div>
+          <p>Elements are the fundamental and smallest building blocks of react (yes, like lego) and they descrie what we want to se on the screen. Since they are plain objects they are cheap to create. React DOM updates the DOM to match the react element.</p>
+          <h3>Rendering an element into the DOM</h3>
+          <p>Imagine that there's a <code class="inline-code">div</code> element somewhere in the page:</p>
+          <code>
+            <ol class="lines">
+              <li>
+                <div>
+                  <span class="code-open-tag">&lt;</span><span class="code-tag">div</span> <span class="code-attribute">id</span><span class="code-dot">=</span><span class="code-string">"root"</span><span class="code-open-tag">&gt;</span><span class="code-open-tag">&lt;/</span><span class="code-tag">div</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+            </ol>
+          </code>
+          <p>
+            This is called a <code class="inline-code">root</code> element, everything inside of the node will be managed by react DOM.
+          </p>
+          <p>
+            Usually react apps have just one root node but, if you're integrating react to an existing app or page you could have as many isolated root nodes as needed.
+          </p>
+          <p>
+            In order to render an element inside the root node both, the element and the root node, should be passed to <code class="inline-code">ReactDOM.render()</code>
+          </p>
+          <code>
+            <ol class="lines">
+              <li>
+                <div>
+                  <span class="code-keyword">const</span> element <span class="code-dot">=</span> <span class="code-open-tag">&lt;</span><span class="code-tag">h1</span><span class="code-open-tag">&gt;</span>Hello, world<span class="code-open-tag">&lt;/</span><span class="code-tag">h1</span><span class="code-open-tag">&gt;;</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <span class="code-object">ReactDOM</span><span class="code-dot">.</span><span class="code-function">render</span><span class="code-parenthesis">(</span>element<span class="code-dot">,</span> <span class="code-object">document</span><span class="code-dot">.</span><span class="code-function">getElementById</span><span class="code-parenthesis">(</span><span class="code-string">'root'</span><span class="code-parenthesis">))</span><span class="code-dot">;</span>
+                </div>
+              </li>
+            </ol>
+          </code>
+          <h3>React only updates what's necessary</h3>
+          <p>
+            React compares the updated component (and its children) with the previous one applying only the necessary updates to match the updated component.
+          </p>
+        </div>
+      </section>
+      <section class="main-section" id="components_and_props">
+        <header>
+          <h2>Components and props</h2>
+        </header>
+        <div>
+          <p>
+            Components let you split your code into small and reusable pieces, think about each piece in isolation. Refer to <a href="https://reactjs.org/docs/react-component.html">react component API</a> for more information.
+          </p>
+          <p>
+            Conceptually, components are like Javascript functions, they receive an arbitrary input (props) and returns an output which is a react element that describes what should be in the screen.
+          </p>
+          <h3>Function and class components</h3>
+          <p>
+            A component can be created by using a function which is the simplest way too.
+          </p>
+          <code>
+            <ol class="lines">
+              <li>
+                <div>
+                  <span class="code-keyword">function</span> <span class="code-function">Welcome</span><span class="code-parenthesis">(</span>props<span class="code-parenthesis">){ </span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">return</span> <span class="code-open-tag">&lt;</span><span class="code-tag">h1</span><span class="code-open-tag">&gt;</span>Hello, <span class="code-parenthesis">{</span><span class="code-object">props</span><span class="code-dot">.</span>name<span class="code-parenthesis">}</span><span class="code-open-tag">&lt;/</span><span class="code-tag">h1</span><span class="code-open-tag">&gt;;</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+            </ol>
+          </code>
+          <p>
+            The example above is a valid react component: it receive a props object containing properties or data it may use and returns a react element. This is called function component. It is literally a function.
+          </p>
+          <p>
+            Components can also be created by using the ES6 class syntax:
+          </p>
+          <code>
+            <ol class="lines">
+              <li>
+                <div>
+                  <span class="code-keyword">class</span> <span class="code-class">Welcome</span> <span class="code-keyword">extends</span> <span class="code-class">React</span><span class="code-dot">.</span><span class="code-class">Component</span> <span class="code-parenthesis">{</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-function">render</span><span class="code-parenthesis">() {</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">return</span> <span class="code-open-tag">&lt;</span><span class="code-tag">h1</span><span class="code-open-tag">&gt;</span>Hello, <span class="code-parenthesis">{</span><span class="code-keyword">this</span><span class="code-dot">.</span><span class="code-prop">props</span><span class="code-dot">.</span>name<span class="code-parenthesis">}</span><span class="code-open-tag">&lt;/</span><span class="code-tag">h1</span><span class="code-open-tag">&gt;;</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+            </ol>
+          </code>
+          <p>
+            While these two examples behave the same, both have differences in terms of prop management, rendering and state management they will be covered in further sections.
+          </p>
+          <p>
+            To use any of the two examples above we can just call it with JSX syntax:
+          </p>
+          <code>
+            <ol class="lines">
+              <li>
+                <div>
+                  <span class="code-keyword">const</span> example <span class="code-dot">=</span> <span class="code-open-tag">&lt;</span><span class="code-component">Welcome</span> <span class="code-attribute">name</span><span class="code-dot">=</span><span class="code-string">"John Doe"</span><span class="code-open-tag">/&gt;;</span>
+                </div>
+              </li>
+            </ol>
+          </code>
+          <p>
+            As you've could guess, these components can also be used in new ones as children. This is called composition.
+          </p>
+          <p>
+            Knowing that, don't be afraid of split a component in smaller pieces that can be reusable in the future.
+          </p>
+          <h3>Props are read-only</h3>
+          <p>
+            A function is considered pure when it does <strong>not</strong> modify its own input. React is very flexible but one rule remains strict: <br />
+            <strong>React components must act as pure functions with respect to their props.</strong>
+          </p>
+        </div>
+      </section>
+      <section class="main-section" id="state">
+        <header>
+          <h2>State</h2>
+        </header>
+        <div>
+          <p>
+            This section covers state management for class components only. For function reference please check <a href="https://reactjs.org/docs/hooks-state.html">state management on function components</a>
+          </p>
+          <p>
+            Since props are read only, currently we have just one way to update our component and it is re rendering manually but, there is another way to do that. Lets say that we have a clock component and we want to update the hour every second, we can use state in here.
+          </p>
+          <p>In order to use state we should set a variable that will hold our data inside, this is made on the class constructor by using <code class="inline-code">this.state = {}</code> in the example below you'll see it in practice: </p>
+          <code>
+            <ol class="lines">
+              <li>
+                <div>
+                  <span class="code-keyword">class</span> <span class="code-class">Watch</span> <span class="code-keyword">extends</span> <span class="code-class">React</span><span class="code-dot">.</span><span class="code-class">Component</span> <span class="code-parenthesis">{</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-keyword">constructor</span><span class="code-parenthesis">(</span>props<span class="code-parenthesis">) {</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-comment">// Note how props are used here</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">super</span><span class="code-parenthesis">(</span>props<span class="code-parenthesis">);</span> 
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">this</span><span class="code-dot">.</span>state <span class="code-dot">=</span> <span class="code-parenthesis">{</span> <span class="code-prop">time</span><span class="code-dot">:</span> <span class="code-keyword">new</span> <span class="code-class">Date</span><span class="code-parenthesis">() };</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li></li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-function">render</span><span class="code-parenthesis">() {</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">return</span> <span class="code-parenthesis">(</span>
+                </div>
+              </li>
+              <li data-indent="3">
+                <div>
+                  <span class="code-open-tag">&lt;</span><span class="code-tag">div</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+              <li data-indent="4">
+                <div>
+                  <span class="code-open-tag">&lt;</span><span class="code-tag">h2</span><span class="code-open-tag">&gt;</span>Current time: <span class="code-parenthesis">{</span><span class="code-keyword">this</span><span class="code-dot">.</span><span class="code-prop">state</span><span class="code-dot">.</span><span class="code-prop">time</span><span class="code-dot">.</span><span class="code-function">toLocaleTimeString</span><span class="code-parenthesis">()}</span><span class="code-open-tag">&lt;/</span><span class="code-tag">h2</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+              <li data-indent="3">
+                <div>
+                  <span class="code-open-tag">&lt;/</span><span class="code-tag">div</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="data-parenthesis">);</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+            </ol>
+          </code>
+          <p>
+            Now we are rendering the current time but we're not updating it.
+          </p>
+          <p>
+            Note: <strong>State should not be updated directly, it should be done by using <code class="inline-code">setState</code> method.</strong>
+          </p>
+        </div>
+      </section>
+      <section class="main-section" id="lifecycle">
+        <header>
+          <h2>Lifecycle</h2>
+        </header>
+        <div>
+          <p>
+            Sometimes we would want to execute an action when something happens. Returning to our previous example, we would want to set up a timer (which updates the time every second) when the component is first rendered and cancel the timer interval and clear the resources used by our component when the component's DOM is released or removed.
+          </p>
+          <p>
+            These are called <code class="inline-code">mounting</code> and <code class="inline-code">unmounting</code> respectively and are inside react's lifecycle. In order to use them, methods with special names should be used.
+          </p>
+          <code>
+            <ol class="lines">
+              <li>
+                <div>
+                  <span class="code-keyword">class</span> <span class="code-class">Watch</span> <span class="code-keyword">extends</span> <span class="code-class">React</span><span class="code-dot">.</span><span class="code-class">Component</span> <span class="code-parenthesis">{</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-keyword">constructor</span><span class="code-parenthesis">(</span>props<span class="code-parenthesis">) {</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-comment">// Note how props are used here</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">super</span><span class="code-parenthesis">(</span>props<span class="code-parenthesis">);</span> 
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">this</span><span class="code-dot">.</span>state <span class="code-dot">=</span> <span class="code-parenthesis">{</span> <span class="code-prop">time</span><span class="code-dot">:</span> <span class="code-keyword">new</span> <span class="code-class">Date</span><span class="code-parenthesis">() };</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li></li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-function">render</span><span class="code-parenthesis">() {</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">return</span> <span class="code-parenthesis">(</span>
+                </div>
+              </li>
+              <li data-indent="3">
+                <div>
+                  <span class="code-open-tag">&lt;</span><span class="code-tag">div</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+              <li data-indent="4">
+                <div>
+                  <span class="code-open-tag">&lt;</span><span class="code-tag">h2</span><span class="code-open-tag">&gt;</span>Current time: <span class="code-parenthesis">{</span><span class="code-keyword">this</span><span class="code-dot">.</span><span class="code-prop">state</span><span class="code-dot">.</span><span class="code-prop">time</span><span class="code-dot">.</span><span class="code-function">toLocaleTimeString</span><span class="code-parenthesis">()}</span><span class="code-open-tag">&lt;/</span><span class="code-tag">h2</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+              <li data-indent="3">
+                <div>
+                  <span class="code-open-tag">&lt;/</span><span class="code-tag">div</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="data-parenthesis">);</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li class="code-highligthed" data-indent="1">
+                <div>
+                  <span class="code-function">componentDidMount</span><span class="code-parenthesis">() {</span>
+                </div>
+              </li>
+              <li class="code-highligthed" data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li class="code-highligthed" data-indent="1">
+                <div>
+                  <span class="code-function">componentWillUnmount</span><span class="code-parenthesis">() {</span>
+                </div>
+              </li>
+              <li class="code-highligthed" data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+            </ol>
+          </code>
+          <p>
+            <code class="inline-code">componentDidMount</code> is called when the component has been rendered to the DOM, here's where we put our timer declaration:
+          </p>
+          <code>
+            <ol class="lines">
+              <li>
+                <div>
+                  <span class="code-keyword">class</span> <span class="code-class">Watch</span> <span class="code-keyword">extends</span> <span class="code-class">React</span><span class="code-dot">.</span><span class="code-class">Component</span> <span class="code-parenthesis">{</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-keyword">constructor</span><span class="code-parenthesis">(</span>props<span class="code-parenthesis">) {</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-comment">// Note how props are used here</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">super</span><span class="code-parenthesis">(</span>props<span class="code-parenthesis">);</span> 
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">this</span><span class="code-dot">.</span>state <span class="code-dot">=</span> <span class="code-parenthesis">{</span> <span class="code-prop">time</span><span class="code-dot">:</span> <span class="code-keyword">new</span> <span class="code-class">Date</span><span class="code-parenthesis">() };</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li></li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-function">render</span><span class="code-parenthesis">() {</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">return</span> <span class="code-parenthesis">(</span>
+                </div>
+              </li>
+              <li data-indent="3">
+                <div>
+                  <span class="code-open-tag">&lt;</span><span class="code-tag">div</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+              <li data-indent="4">
+                <div>
+                  <span class="code-open-tag">&lt;</span><span class="code-tag">h2</span><span class="code-open-tag">&gt;</span>Current time: <span class="code-parenthesis">{</span><span class="code-keyword">this</span><span class="code-dot">.</span><span class="code-prop">state</span><span class="code-dot">.</span><span class="code-prop">time</span><span class="code-dot">.</span><span class="code-function">toLocaleTimeString</span><span class="code-parenthesis">()}</span><span class="code-open-tag">&lt;/</span><span class="code-tag">h2</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+              <li data-indent="3">
+                <div>
+                  <span class="code-open-tag">&lt;/</span><span class="code-tag">div</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="data-parenthesis">);</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-function">componentDidMount</span><span class="code-parenthesis">() {</span>
+                </div>
+              </li>
+              <li class="code-highligthed" data-indent="2">
+                <div>
+                  <span class="code-keyword">this</span><span class="code-dot">.</span>timer <span class="code-dot">=</span> <span class="code-function">setInterval</span><span class="code-parenthesis">(</span>
+                </div>
+              </li>
+              <li class="code-highligthed" data-indent="3">
+                <div>
+                  <span class="code-parenthesis">() => {</span> <span class="code-keyword">this</span><span class="code-dot">.</span><span class="code-function">update</span><span class="code-parenthesis">()</span><span class="code-dot">,</span>
+                </div>
+              </li>
+              <li class="code-highligthed" data-indent="3">
+                <div>
+                  <span class="code-number">1000</span>
+                </div>
+              </li>
+              <li class="code-highligthed" data-indent="2">
+                <div>
+                  <span class="code-parenthesis">);</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-function">componentWillUnmount</span><span class="code-parenthesis">() {</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+            </ol>
+          </code>
+          <p>
+            Then we cancel our interval on our cleanup method:
+          </p>
+          <code>
+            <ol class="lines">
+              <li>
+                <div>
+                  <span class="code-keyword">class</span> <span class="code-class">Watch</span> <span class="code-keyword">extends</span> <span class="code-class">React</span><span class="code-dot">.</span><span class="code-class">Component</span> <span class="code-parenthesis">{</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-keyword">constructor</span><span class="code-parenthesis">(</span>props<span class="code-parenthesis">) {</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-comment">// Note how props are used here</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">super</span><span class="code-parenthesis">(</span>props<span class="code-parenthesis">);</span> 
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">this</span><span class="code-dot">.</span>state <span class="code-dot">=</span> <span class="code-parenthesis">{</span> <span class="code-prop">time</span><span class="code-dot">:</span> <span class="code-keyword">new</span> <span class="code-class">Date</span><span class="code-parenthesis">() };</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li></li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-function">render</span><span class="code-parenthesis">() {</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">return</span> <span class="code-parenthesis">(</span>
+                </div>
+              </li>
+              <li data-indent="3">
+                <div>
+                  <span class="code-open-tag">&lt;</span><span class="code-tag">div</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+              <li data-indent="4">
+                <div>
+                  <span class="code-open-tag">&lt;</span><span class="code-tag">h2</span><span class="code-open-tag">&gt;</span>Current time: <span class="code-parenthesis">{</span><span class="code-keyword">this</span><span class="code-dot">.</span><span class="code-prop">state</span><span class="code-dot">.</span><span class="code-prop">time</span><span class="code-dot">.</span><span class="code-function">toLocaleTimeString</span><span class="code-parenthesis">()}</span><span class="code-open-tag">&lt;/</span><span class="code-tag">h2</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+              <li data-indent="3">
+                <div>
+                  <span class="code-open-tag">&lt;/</span><span class="code-tag">div</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="data-parenthesis">);</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-function">componentDidMount</span><span class="code-parenthesis">() {</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">this</span><span class="code-dot">.</span>timer <span class="code-dot">=</span> <span class="code-function">setInterval</span><span class="code-parenthesis">(</span>
+                </div>
+              </li>
+              <li data-indent="3">
+                <div>
+                  <span class="code-parenthesis">() => {</span> <span class="code-keyword">this</span><span class="code-dot">.</span><span class="code-function">update</span><span class="code-parenthesis">()</span><span class="code-dot">,</span>
+                </div>
+              </li>
+              <li data-indent="3">
+                <div>
+                  <span class="code-number">1000</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-parenthesis">);</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-function">componentWillUnmount</span><span class="code-parenthesis">() {</span>
+                </div>
+              </li>
+              <li class="code-highligthed" data-indent="2">
+                <div>
+                  <span class="code-function">clearInterval</span><span class="code-parenthesis">(</span><span class="code-keyword">this</span><span class="code-dot">.</span>timer<span class="code-parenthesis">);</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+            </ol>
+          </code>
+          <p>
+            Now we have to update our state in order to see the time chanching. You've noticed before that we used <code class="inline-code">this.update()</code> method, now we're going to declare it.
+          </p>
+          <code>
+            <ol class="lines">
+              <li>
+                <div>
+                  <span class="code-keyword">class</span> <span class="code-class">Watch</span> <span class="code-keyword">extends</span> <span class="code-class">React</span><span class="code-dot">.</span><span class="code-class">Component</span> <span class="code-parenthesis">{</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-keyword">constructor</span><span class="code-parenthesis">(</span>props<span class="code-parenthesis">) {</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-comment">// Note how props are used here</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">super</span><span class="code-parenthesis">(</span>props<span class="code-parenthesis">);</span> 
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">this</span><span class="code-dot">.</span>state <span class="code-dot">=</span> <span class="code-parenthesis">{</span> <span class="code-prop">time</span><span class="code-dot">:</span> <span class="code-keyword">new</span> <span class="code-class">Date</span><span class="code-parenthesis">() };</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li></li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-function">render</span><span class="code-parenthesis">() {</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">return</span> <span class="code-parenthesis">(</span>
+                </div>
+              </li>
+              <li data-indent="3">
+                <div>
+                  <span class="code-open-tag">&lt;</span><span class="code-tag">div</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+              <li data-indent="4">
+                <div>
+                  <span class="code-open-tag">&lt;</span><span class="code-tag">h2</span><span class="code-open-tag">&gt;</span>Current time: <span class="code-parenthesis">{</span><span class="code-keyword">this</span><span class="code-dot">.</span><span class="code-prop">state</span><span class="code-dot">.</span><span class="code-prop">time</span><span class="code-dot">.</span><span class="code-function">toLocaleTimeString</span><span class="code-parenthesis">()}</span><span class="code-open-tag">&lt;/</span><span class="code-tag">h2</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+              <li data-indent="3">
+                <div>
+                  <span class="code-open-tag">&lt;/</span><span class="code-tag">div</span><span class="code-open-tag">&gt;</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="data-parenthesis">);</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-function">componentDidMount</span><span class="code-parenthesis">() {</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-keyword">this</span><span class="code-dot">.</span>timer <span class="code-dot">=</span> <span class="code-function">setInterval</span><span class="code-parenthesis">(</span>
+                </div>
+              </li>
+              <li data-indent="3">
+                <div>
+                  <span class="code-parenthesis">() => {</span> <span class="code-keyword">this</span><span class="code-dot">.</span><span class="code-function">update</span><span class="code-parenthesis">()</span><span class="code-dot">,</span>
+                </div>
+              </li>
+              <li data-indent="3">
+                <div>
+                  <span class="code-number">1000</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-parenthesis">);</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-function">componentWillUnmount</span><span class="code-parenthesis">() {</span>
+                </div>
+              </li>
+              <li data-indent="2">
+                <div>
+                  <span class="code-function">clearInterval</span><span class="code-parenthesis">(</span><span class="code-keyword">this</span><span class="code-dot">.</span>timer<span class="code-parenthesis">);</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li></li>
+              <li class="code-highligthed" data-indent="1">
+                <div>
+                  <span class="code-function">update</span><span class="code-parenthesis">() {</span>
+                </div>
+              </li>
+              <li class="code-highligthed" data-indent="2">
+                <div>
+                  <span class="code-keyword">this</span><span class="code-dot">.</span><span class="code-function">setState</span><span class="code-parenthesis">({</span>
+                </div>
+              </li>
+              <li class="code-highligthed" data-indent="3">
+                <div>
+                  <span class="code-prop">time</span><span class="code-dot">:</span> <span class="code-keyword">new</span> <span class="code-class">Date</span><span class="code-parenthesis">()</span><span class="code-dot">,</span>
+                </div>
+              </li>
+              <li class="code-highligthed" data-indent="2">
+                <div>
+                  <span class="code-parenthesis">});</span>
+                </div>
+              </li>
+              <li class="code-highligthed" data-indent="1">
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <span class="code-parenthesis">}</span>
+                </div>
+              </li>
+            </ol>
+          </code>
+          <h3>State updates may be asynchronous</h3>
+          <p>
+            React may batch multiple state updates for performance therefore, state values should not be used as a reference for state updates. To fix this, <code class="inline-code">setState</code> comes with a second form which receives a function as parameter:
+          </p>
+          <code>
+            <ol class="lines">
+              <li>
+                <div>
+                  <span class="code-comment">// Correct way to reference previous state</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <span class="code-keyword">this</span><span class="code-dot">.</span><span class="code-function">setState</span><span class="code-parenthesis">((</span>state, props<span class="code-parenthesis">) => ({</span>
+                </div>
+              </li>
+              <li data-indent="1">
+                <div>
+                  <span class="code-prop">some</span><span class="code-dot">:</span> state.some + props.someIncrement<span class="code-dot">,</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <span class="code-parenthesis">}));</span>
+                </div>
+              </li>
+            </ol>
+          </code>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
